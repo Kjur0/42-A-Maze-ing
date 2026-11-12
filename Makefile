@@ -2,10 +2,10 @@ install:
 	@echo "Project has no dependencies"
 
 run:
-	python3 a_maze_ing.py
+	python3 a_maze_ing.py config.txt
 
 debug:
-	python3 -m pdb a_maze_ing.py
+	python3 -m pdb a_maze_ing.py config.txt
 
 clean:
 	rm -rf **/.mypy_cache
