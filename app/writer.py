@@ -1,4 +1,10 @@
-def write_maze(filename, grid, entry, exit, path):
+def write_maze(
+    filename: str,
+    grid: list[list[int]],
+    entry: tuple[int, int],
+    exit: tuple[int, int],
+    path: str
+) -> None:
     lines = []
 
     for row in grid:

@@ -8,7 +8,11 @@ DIRECTIONS = [
 ]
 
 
-def shortest_path(grid, entry, exit):
+def shortest_path(
+    grid: list[list[int]],
+    entry: tuple[int, int],
+    exit: tuple[int, int]
+) -> str:
     queue = deque([entry])
     seen = {entry}
     came_from: dict[tuple[int, int], tuple[tuple[int, int], str]] = {}
