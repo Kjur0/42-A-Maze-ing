@@ -1,3 +1,6 @@
+from typing import Any
+
+
 class ConfigError(Exception):
     pass
 
@@ -5,21 +8,23 @@ class ConfigError(Exception):
 REQUIRED_KEYS = ["WIDTH", "HEIGHT", "ENTRY", "EXIT", "OUTPUT_FILE", "PERFECT"]
 
 
-def to_int(key, value):
+def to_int(key: str, value: str) -> int:
     try:
         return int(value)
     except ValueError:
         raise ConfigError(f"{key} must be a number, got '{value}'")
 
 
-def to_coords(key, value):
+def to_coords(key: str, value: str) -> tuple[int, int]:
     parts = value.split(",")
     if len(parts) != 2:
         raise ConfigError(f"{key} must look like x,y, got '{value}'")
     return (to_int(key, parts[0]), to_int(key, parts[1]))
 
 
-def load_config(path):
+def load_config(
+    path: str
+) -> dict[str, Any]:
     try:
         with open(path) as f:
             lines = f.readlines()

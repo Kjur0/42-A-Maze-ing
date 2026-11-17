@@ -1,4 +1,5 @@
 import random
+from typing import Optional
 
 from mazegen.pattern import pattern_cells
 
@@ -20,17 +21,25 @@ class MazeError(Exception):
 
 
 class MazeGenerator:
-    def __init__(self, width, height, entry, exit, perfect=True, seed=None):
+    def __init__(
+        self,
+        width: int,
+        height: int,
+        entry: tuple[int, int],
+        exit: tuple[int, int],
+        perfect: bool = True,
+        seed: Optional[int] = None
+    ) -> None:
         self.width = width
         self.height = height
         self.entry = entry
         self.exit = exit
         self.perfect = perfect
         self.seed = seed
-        self.grid = []
-        self.pattern = set()
+        self.grid: list[list[int]] = []
+        self.pattern: set[tuple[int, int]] = set()
 
-    def generate(self):
+    def generate(self) -> list[list[int]]:
         rng = random.Random(self.seed)
 
         self.grid = []

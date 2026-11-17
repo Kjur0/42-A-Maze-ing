@@ -22,7 +22,13 @@ MOVES = {
 }
 
 
-def draw_maze(grid, entry, exit, path, wall_color):
+def draw_maze(
+    grid: list[list[int]],
+    entry: tuple[int, int],
+    exit: tuple[int, int],
+    path: str,
+    wall_color: str
+) -> None:
     wall = wall_color + "  " + RESET
     height = len(grid)
     width = len(grid[0])
@@ -65,7 +71,7 @@ def draw_maze(grid, entry, exit, path, wall_color):
         print("".join(line))
 
 
-def print_menu():
+def print_menu() -> None:
     print()
     print("=== A-Maze-ing ===")
     print("1. Generate a new maze")
