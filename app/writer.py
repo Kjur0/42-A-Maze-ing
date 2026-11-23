@@ -1,4 +1,4 @@
-def write_maze(filename, grid, entry, exit, path):
+def write_maze(filename, grid, entry, exit, path):  # type: ignore
     lines = []
 
     for row in grid:
