@@ -10,7 +10,7 @@ PATTERN_WIDTH = len(PATTERN_42[0])
 PATTERN_HEIGHT = len(PATTERN_42)
 
 
-def pattern_cells(width, height):
+def pattern_cells(width: int, height: int) -> set[tuple[int, int]]:
     if width < PATTERN_WIDTH + 2 or height < PATTERN_HEIGHT + 2:
         return set()
 

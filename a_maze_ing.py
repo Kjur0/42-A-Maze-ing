@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import sys
+from typing import Any
 
 from app.config import ConfigError, load_config
 from app.display import WALL_COLORS, draw_maze, print_menu
@@ -15,11 +16,13 @@ TEST_ENTRY = (0, 0)
 TEST_EXIT = (3, 2)
 
 
-def build_maze(settings):
+def build_maze(
+    settings: dict[str, Any]
+) -> tuple[list[list[int]], tuple[int, int], tuple[int, int]]:
     return TEST_GRID, TEST_ENTRY, TEST_EXIT
 
 
-def main():
+def main() -> None:
     if len(sys.argv) != 2:
         print("Usage: python3 a_maze_ing.py config.txt")
         sys.exit(1)
