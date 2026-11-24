@@ -11,7 +11,7 @@ seed = int(sys.argv[3])
 entry = (0, 0)
 exit = (width - 1, height - 1)
 
-generator = MazeGenerator(width, height, entry, exit, seed=seed)
+generator = MazeGenerator(width, height, entry, exit, perfect=False, seed=seed)
 grid = generator.generate()
 path = shortest_path(grid, entry, exit)
 
