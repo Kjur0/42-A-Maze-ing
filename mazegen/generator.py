@@ -75,4 +75,55 @@ class MazeGenerator:
             visited.add((nx, ny))
             stack.append((nx, ny))
 
+        if not self.perfect:
+            self.add_loops(rng)
         return self.grid
+
+    def is_open_block(self, left: int, top: int) -> bool:
+        if left < 0 or top < 0:
+            return False
+        if left + 3 > self.width or top + 3 > self.height:
+            return False
+        for y in range(top, top + 3):
+            for x in range(left, left + 3):
+                if x < left + 2 and self.grid[y][x] & EAST:
+                    return False
+                if y < top + 2 and self.grid[y][x] & SOUTH:
+                    return False
+        return True
+
+    def has_open_area(self, x: int, y: int) -> bool:
+        for top in range(y - 2, y + 1):
+            for left in range(x - 2, x + 1):
+                if self.is_open_block(left, top):
+                    return True
+        return False
+
+    def add_loops(self, rng: random.Random) -> None:
+        walls: list[tuple[int, int, int, int, int, int]] = []
+        for y in range(self.height):
+            for x in range(self.width):
+                if (x, y) in self.pattern:
+                    continue
+                if x + 1 < self.width and (x + 1, y) not in self.pattern:
+                    if self.grid[y][x] & EAST:
+                        walls.append((x, y, x + 1, y, EAST, WEST))
+                if y + 1 < self.height and (x, y + 1) not in self.pattern:
+                    if self.grid[y][x] & SOUTH:
+                        walls.append((x, y, x, y + 1, SOUTH, NORTH))
+
+        rng.shuffle(walls)
+        cells = self.width * self.height - len(self.pattern)
+        to_remove = max(2, cells // 10)
+
+        removed = 0
+        for x, y, nx, ny, wall, opposite in walls:
+            if removed == to_remove:
+                break
+            self.grid[y][x] -= wall
+            self.grid[ny][nx] -= opposite
+            if self.has_open_area(x, y) or self.has_open_area(nx, ny):
+                self.grid[y][x] += wall
+                self.grid[ny][nx] += opposite
+            else:
+                removed += 1
